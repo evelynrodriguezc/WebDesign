@@ -9,17 +9,22 @@
 <body>
     <form action="">
         <label for="Nombre">
-            <span>¿Cual es tú nombre?</span>
-            <input type="text" id="Nombre" placeholder="Tu nombre" required>
+            <span>¿Cual es tú nombre? </span>
+            <input type="text" id="Nombre" placeholder="Tu nombre" autocomplete="name" required/>
         </label>
-        <label for="Inicio-Platzi">
-            <span>¿Qué día iniciaste en Platzi?</span>
-            <input type="date" id="Inicio-Platzi">
+        <label for="Correo">
+            <span>Correo electrónico: </span>
+            <input type="email" id="Correo" placeholder="tucorreo@correo.com" autocomplete="email" required/>
         </label>
-        <label for="Horario">
-            <span>¿En qué horario te gusta estudiar?</span>
-            <input type="time" id="Horario">
+        <label for="Pais">
+            <span>País de residencia: </span>
+            <input type="text" id="Pais" autocomplete="country" required/>
         </label>
+        <label for="ZCode">
+            <span>ZIP CODE</span>
+            <input type="text" id="ZCode" autocomplete="postal-code" required/>
+        </label>
+        <input type="submit"/>
     </form>
 </body>
 </html>
