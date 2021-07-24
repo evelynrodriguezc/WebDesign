@@ -1,0 +1,57 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+.fondo {
+    width: 100vw;
+    height: 100vh;
+    background-color: seashell;
+    font-size: 1.6rem;
+    font-family: monospace;
+}
+
+
+.top {
+    width: 20vw;
+    height: 8vh;
+    background-color: palevioletred;
+    border: 3px;
+    border-radius: 20px;
+    position: absolute;
+    top: 35vh;
+    left: 40vw;
+    padding: 20px 8px;
+}
+
+.container {
+    width: 60vw;
+    height: 40vh;
+    background-color: lightskyblue;
+    border: 3px transparent;
+    border-radius: 20px;
+    position: absolute;
+    top: 40vh;
+    left: 20vw;
+    padding: 20px;
+}
+
+.big__box {
+    margin-top: 20px;
+}
+
+
+.small__box {
+    margin-top: 20px;
+    padding-left: 0px;
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+
+
