@@ -1,0 +1,22 @@
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+/*Hasta aquí usar siempre estas medidas*/
+
+
+/*con 1.6 en rem y 62.5% en este caso sería 16px, para 20px sería 2rem*/
+p {
+    font-size: 1.6rem;
+}
+
+main div {
+    font-size: 1.6rem;
+}
