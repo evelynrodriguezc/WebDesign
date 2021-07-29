@@ -5,14 +5,24 @@
 }
 
 
-.encabezado {
-    background-color: rgb(55, 214, 63);
-    margin: 10px;
-    padding: 5px;
-    display: inline-block;
-}
-
 h1 {
     color: white;
 }
 
+.encabezado {
+    background-color: green;
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.item {
+    color: white;
+    text-decoration: none;
+}
+
+p {
+    font-family: monospace;
+    font-size: 12px;
+    color: green;
+}
