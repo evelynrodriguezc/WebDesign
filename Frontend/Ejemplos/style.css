@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+.caja1 {
+    background-color: lightpink;
+    width: 30px;
+    height: 30px;
+    padding: 30px;
+    border: 5px solid  skyblue;
+    margin: 0 0 10px 0;
+}
+
+
+.caja2 {
+    background-color: skyblue;
+    width: 30px;
+    height: 30px;
+    padding: 30px;
+    border: 5px solid  lightpink;
+}
