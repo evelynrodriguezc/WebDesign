@@ -9,14 +9,28 @@
     height: 30px;
     padding: 30px;
     border: 5px solid  skyblue;
-    margin: 0 0 10px 0;
+    margin: 10px 0 10px 0;
 }
 
 
 .caja2 {
     background-color: skyblue;
     width: 30px;
-    height: 30px;
+    height: 3 0px;
     padding: 30px;
     border: 5px solid  lightpink;
+}
+
+.encabezado {
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+    ;
+    width: 100%;
+    height: 80px;
+}
+
+.encabezado img {
+    width: 200px;
+    margin-top: 10px;
+    margin-left: 10px;
 }
