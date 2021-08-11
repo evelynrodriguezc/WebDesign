@@ -1,0 +1,113 @@
+
+body {
+    margin: 0;
+    font-family: 'Muli', sans-serif;
+    /* background-color: #8f57fd; */
+    background: linear-gradient(#21c08b, #AB88FF);
+}
+
+.header {
+    align-items: center;
+    /* background-color: #8f57fd; */
+    color: white;
+    display: flex;
+    height: 100px;
+    justify-content: space-between;
+    top: 0px;
+    width: 100%;
+}
+
+.header__img {
+    margin-left: 30px;
+    width: 200px;
+}
+
+.header__menu {
+    margin-right: 30px;
+}
+
+h1 {
+    text-align: center;
+    margin-top: 230px;
+    margin-bottom: 15px;
+    color: #fff;
+    font-size: 90px;
+    font-family: 'Muli, sans-serif;
+    text-transform: uppercase;
+}
+
+.animated {
+    animation-duration: 2.5s;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+    0% {transform: scale(1);}
+    50% {transform: scale(1.2);}
+    100% {transform: scale(1);}
+}
+
+.pulse {
+    animation-name: pulse;
+    animation-duration: 1.5s;
+}
+
+
+.wrapper {
+    height: 10vh;
+    /*This part is important for centering*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: -40px;
+    margin-bottom: 192.5px;
+}
+
+.typing-demo {
+    width: 22ch;
+    animation: typing 2s steps(22), blink .5s step-end infinite alternate;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid;
+    font-family: monospace;
+    font-size: 12px;
+    color: white;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent
+    }
+}
+
+
+.footer {
+    align-items: center;
+    /* background-color: #8f57fd; */
+    display: flex;
+    height: 100px;
+    width: 100%;
+}
+
+.footer a {
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+    padding-left: 30px;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
