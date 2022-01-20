@@ -1,4 +1,5 @@
-function suma() {
+function suma() 
+{
     let resultado;
     do {
         resultado = parseInt(prompt('¿Cuál es el resultado de "2 + 2"? '));
@@ -6,7 +7,8 @@ function suma() {
     if (resultado === 4);
     return console.log('¡Perfecto!');
 }
-suma();
+suma(); 
+
 
 
 
