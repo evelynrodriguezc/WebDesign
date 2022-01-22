@@ -1,5 +1,6 @@
 body
 {
+    background: #1e1f24;
     color: rgb(84, 179, 211);
     text-align: center;
     font-family: "Arial";
@@ -12,16 +13,22 @@ body
 #cabecera
 {
     background: rgb(84, 179, 211);
-    box-shadow: 0px 2px 20px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 2px 20px 0px rgba(0,0,0,0.5);
     color: whitesmoke;
     font-weight: bold;
     margin: 0;
     padding: 0.5em;
 }
 
+#cabecera #logo
+{
+    width: 20px;
+    vertical-align: middle;
+}
+
 #cabecera #tagline
 {
-    padding: 1em 0 0 0;
+    padding: 0 0 0 1em;
     font-weight: normal;
     font-size: 0.8em;
 }
@@ -31,7 +38,7 @@ body
 {
     width: 70%;
     padding: 0;
-    text-align: center  ;
+    text-align: left  ;
     border: 1px solid rgb(187, 186, 186);
     margin: 0 auto;
 }
@@ -43,5 +50,6 @@ body
 
 #post
 {
-
+    background: white;
+    padding: 1em;
 }
