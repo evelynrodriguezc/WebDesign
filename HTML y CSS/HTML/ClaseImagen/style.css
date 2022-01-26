@@ -1,8 +1,8 @@
 
 body {
+    background-color: whitesmoke;
     margin: 0;
     padding: 0;
-    background-color: seashell;
 }
 
 section {
@@ -10,20 +10,27 @@ section {
 }
 
 li {
-    list-style:circle;
+    list-style: none;
 }
 
 main {
-    font-family:monospace;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: medium;
 }
 
 .TituloP {
-    color: salmon;
-    font-size: 30px;
+    color: rgb(79, 87, 197);
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 35px;
+    margin: 0.5em;
+    text-align: left;
 }
 
 img {
     border-radius: 25px;
-    width: 100px;
     height: 120px;
+    margin-top: -0.3cm;
+    margin-left: -1cm;
+    padding: 1cm 1cm 1cm -5cm;
+    width: 100px;
 }
