@@ -8,7 +8,7 @@
 main {
     width: 100vw; /*width*/
     height: 100vh; /*height*/
-    background-color: purple;
+    background-color: lightcoral;
 }
 
 section {
@@ -17,5 +17,5 @@ section {
     max-width: 500px;
     height: 500px;
     margin: 0 auto;
-    background-color: red;
+    background-color: lightskyblue;
 }

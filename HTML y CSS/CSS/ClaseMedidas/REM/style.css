@@ -13,6 +13,7 @@ html {
 
 
 /*con 1.6 en rem y 62.5% en este caso sería 16px, para 20px sería 2rem*/
+/*aquí con esta medida controlada cada 1 rem es equivalente a 10px*/
 p {
     font-size: 1.6rem;
 }

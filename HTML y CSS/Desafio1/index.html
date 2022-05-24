@@ -1,13 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Desafio1</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Desafio1</title>
+  <link rel="stylesheet" href="./style.css">
 <body>
-    
+    <header class="header">
+        <figure class="header__logo">
+            <img src="data:image/png;base64,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"/>
+        </figure>
+        <nav class="nav">
+            <ul class="nav__list">
+                <li>
+                    <a href="#">Home</a>
+                  </li>
+                  <li>
+                    <a href="#">Cursos</a>
+                  </li>
+                  <li>
+                    <a href="#">Instructores</a>
+                  </li>
+                  <li>
+                    <a href="#">Blog</a>
+                  </li>
+            </ul>
+        </nav>
+    </header>
+    <main class="">
+        <aside>
+            <div>Elemento 1</div>
+            <div>Elemento 2</div>
+            <div>Elemento 3</div>
+            <div>Elemento 4</div>
+        </aside>
+        <section class="content">
+            Area principal de contenido y texto
+        </section>
+        <div class="footer">
+            <p>Foooooter</p>
+        </div>
+    </main>
 </body>
 </html>

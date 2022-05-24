@@ -11,47 +11,53 @@ html {
 .fondo {
     width: 100vw;
     height: 100vh;
-    background-color: seashell;
-    font-size: 1.6rem;
+    background-color: cornsilk;
+    font-size: 1.2rem;
     font-family: monospace;
 }
 
 
-.top {
-    width: 20vw;
-    height: 8vh;
-    background-color: palevioletred;
-    border: 3px;
-    border-radius: 20px;
-    position: absolute;
-    top: 35vh;
-    left: 40vw;
-    padding: 20px 8px;
-}
 
 .container {
-    width: 60vw;
-    height: 40vh;
-    background-color: lightskyblue;
-    border: 3px transparent;
-    border-radius: 20px;
+    width: 100%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+.box {
+    display: block;
+    width: 30rem;
+    height: 35rem;
+    border: 0.1rem black solid;
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+    
+
+#one {
+    width: 50rem;
+    height: 35rem;
     position: absolute;
-    top: 40vh;
-    left: 20vw;
-    padding: 20px;
+    padding: 5rem;
+    background-color:mintcream;
+    border: 0.1rem black solid;
+    border-radius: 1.5rem;
+    margin-top: 30px;
+    text-align:justify;
 }
 
-.big__box {
-    margin-top: 20px;
-}
-
-
-.small__box {
-    margin-top: 20px;
-    padding-left: 0px;
-    font-size: 1.5rem;
+#two {
+    width: 20rem;
+    height: 2rem;
+    position: absolute;
+    padding: 2rem;
+    margin-top: 1rem;
+    background-color: lightcoral;
+    border: 0.1rem black solid;
+    border-radius: 1.5rem;
     text-align: center;
 }
 
-
-
+    
