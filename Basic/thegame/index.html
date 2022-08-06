@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avatar's Game</title>
+    <script src="./js/thegame.js"></script>
+    <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+    <h1>Avatar's Game</h1>
+
+    <section id="character-picker">
+        <h2>Choose your character: </h2>
+
+        
+        <input type="radio" name="character" id="Aang"/>
+        <label for="Aang">Aang</label>
+
+        <input type="radio" name="character" id="Kiyoshi"/>
+        <label for="Kiyoshi">Kiyoshi</label>
+
+        <input type="radio" name="character" id="Korra"/>
+        <label for="Korra">Korra</label>
+
+        <input type="radio" name="character" id="Roku"/>
+        <label for="Roku">Roku</label>
+
+        <button id="button-character">Select</button>
+
+       
+
+    </section>
+
+    <section id="attack-picker">
+
+        <h2>Choose your attack element: </h2>
+        <p>Your character is <span id="character-player"> </span></p>
+        <p>Lives = <span id="lives-player">3</span></p>
+        <p>🆚</p>
+        <p>Your enemy's character is <span id="character-enemy"></p>
+        <p>Lives = <span id="lives-enemy">3</span></p>
+
+        <p>
+            <button id="button-water" >Water💧</button>
+            <button id="button-fire">Fire 🔥</button>
+            <button id="button-earth">Earth 🪨</button>
+            <button id="button-air">Air 🌬</button>
+        </p>
+    </section>
+    
+    <section id="messages">
+        
+    </section>
+
+    <section id="reset">
+        <p>
+            <button id="button-reset">Reset</button>
+        </p>
+    </section>
+
+</body>
+</html>
