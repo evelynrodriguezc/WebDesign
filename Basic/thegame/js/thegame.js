@@ -1,87 +1,186 @@
 
+const buttonCharacterPlayer = document.getElementById('button-character')
+const sectionSelectAttack = document.getElementById('attack-picker')
+const sectionResetGame = document.getElementById('reset')
+const buttonReset = document.getElementById('button-reset')
+sectionResetGame.style.display = 'none'
+
+const sectionSelectCharacter = document.getElementById('character-picker')
+const spanPlayerCharacter = document.getElementById('character-player')
+
+const spanEnemyCharacter = document.getElementById('character-enemy')
+
+const spanLivesPlayer = document.getElementById('lives-player')
+const spanLivesEnemy = document.getElementById('lives-enemy')
+
+const sectionMessage = document.getElementById('result')
+const playersAttack = document.getElementById('attacks-player')
+const enemysAttack= document.getElementById('attacks-enemy')
+
+const sectionReset = document.getElementById('reset')
+
+const cardsContainer = document.getElementById('cardsContainer')
+const attacksContainer = document.getElementById('attacksContainer')
+
+let avatars = []
 let attackPlayer 
 let attackEnemy
+let avatarsOptions
+let inputAang 
+let inputKiyoshi 
+let inputKorra 
+let inputRoku 
+let characterPlayer
+let attacksAvatar
+let buttonWater 
+let buttonFire
+let buttonEarth 
+let buttonAir 
 let livesPlayer = 3
 let livesEnemy = 3
 
+class Avatar {
+    constructor(name, img, live){
+        this.name = name
+        this.img = img
+        this.live = live
+        this.attacks = []
+    }
+}
+
+
+let aang = new Avatar('Aang', './assets/aang', 5)
+
+let kiyoshi = new Avatar('Kiyoshi', './assets/kiyoshi', 5)
+
+let korra = new Avatar('Korra', './assets/korra', 5)
+
+let roku = new Avatar('Roku', './assets/roku', 5)
+
+
+aang.attacks.push(
+    {name: '🌬', id: 'button-earth'},
+    {name: '🌬', id: 'button-air'},
+    {name: '💧', id: 'button-water'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '🪨', id: 'button-earth'},
+)
+
+kiyoshi.attacks.push(
+    {name: '🪨', id: 'button-earth'},
+    {name: '🪨', id: 'button-earth'},
+    {name: '💧', id: 'button-water'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '🌬', id: 'button-air'}
+)
+
+korra.attacks.push(
+    {name: '💧', id: 'button-water'},
+    {name: '💧', id: 'button-water'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '🪨', id: 'button-earth'},
+    {name: '🌬', id: 'button-air'}
+)
+
+roku.attacks.push(
+    {name: '🔥', id: 'button-fire'},
+    {name: '🔥', id: 'button-fire'},
+    {name: '💧', id: 'button-water'},
+    {name: '🪨', id: 'button-earth'},
+    {name: '🌬', id: 'button-air'}
+)
+
+avatars.push(aang, kiyoshi, korra, roku)
+
+
 function startGame(){
 
-    let sectionSelectAttack = document.getElementById('attack-picker')
     sectionSelectAttack.style.display = 'none'
 
-    let buttonCharacterPlayer = document.getElementById('button-character')
+    avatars.forEach((avatar) => {
+        avatarsOptions = `
+        <input type="radio" name="character" id=${avatar.name} />
+        <label class="avatars-card" for=${avatar.name}>
+            <p>${avatar.name}</p>
+            <img src=${avatar.img} alt=${avatar.name}>
+        </label>
+        `
+        cardsContainer.innerHTML += avatarsOptions
+    
+        inputAang = document.getElementById('Aang')
+        inputKiyoshi = document.getElementById('Kiyoshi')
+        inputKorra = document.getElementById('Korra')
+        inputRoku = document.getElementById('Roku')
+    
+    })
+
     buttonCharacterPlayer.addEventListener('click', selectPlayerCharacter)
 
-    let buttonResetGame = document.getElementById('button-reset')
-    buttonResetGame.addEventListener('click', resetGame)
-    buttonResetGame.disabled = true
-//-------------------
-    let buttonWater = document.getElementById('button-water')
-    buttonWater.addEventListener('click', attackWater)
-
-    let buttonFire = document.getElementById('button-fire')
-    buttonFire.addEventListener('click', attackFire)
-
-    let buttonEarth = document.getElementById('button-earth')
-    buttonEarth.addEventListener('click', attackEarth)
-
-    let buttonAir = document.getElementById('button-air')
-    buttonAir.addEventListener('click', attackAir)
-
-
+    buttonReset.addEventListener('click', resetGame)
 }
 
 function selectPlayerCharacter(){
     
-    let sectionSelectCharacter = document.getElementById('character-picker')
     sectionSelectCharacter.style.display = 'none'
 
-    let sectionSelectAttack = document.getElementById('attack-picker')
-    sectionSelectAttack.style.display = 'block'
-
-    let inputAang = document.getElementById('Aang')
-    let inputKiyoshi = document.getElementById('Kiyoshi')
-    let inputKorra= document.getElementById('Korra')
-    let inputRoku= document.getElementById('Roku')
-    let spanPlayerCharacter = document.getElementById('character-player')
-    //let spanEnemyCharacter = document.getElementByID('character-enemy')
-
+    sectionSelectAttack.style.display = 'flex'
 
     if(inputAang.checked){
-        spanPlayerCharacter.innerHTML = 'Aang'
+        spanPlayerCharacter.innerHTML = inputAang.id
+        characterPlayer = inputAang.id
     } else if(inputKiyoshi.checked){
-        spanPlayerCharacter.innerHTML = 'Kiyoshi'
+        spanPlayerCharacter.innerHTML = inputKiyoshi.id
+        characterPlayer = inputKiyoshi.id
     } else if(inputKorra.checked){
-        spanPlayerCharacter.innerHTML = 'Korra'
+        spanPlayerCharacter.innerHTML = inputKorra.id
+        characterPlayer = inputKorra.id
     } else if(inputRoku.checked){
-        spanPlayerCharacter.innerHTML = 'Roku'
+        spanPlayerCharacter.innerHTML = inputRoku.id
+        characterPlayer = inputRoku.id 
     } else {
         alert("You haven't selected your character")
         resetGame()
     }
+    extractAttacks(characterPlayer)
     selectEnemyCharacter()
-
-    let buttonCharacterPlayer = document.getElementById('character-player')
-    buttonCharacterPlayer.disabled = true
 
 }
 
 
-function selectEnemyCharacter(){
-
-
-    let randomCharacter = random(1,5)
-    let spanEnemyCharacter = document.getElementById('character-enemy')
-
-    if(randomCharacter == 1){
-        spanEnemyCharacter.innerHTML = 'Aang' //air
-    } else if(randomCharacter == 2){
-        spanEnemyCharacter.innerHTML = 'Kiyoshi' //earth
-    } else if(randomCharacter == 3){
-        spanEnemyCharacter.innerHTML = 'Korra' //water
-    } else {
-        spanEnemyCharacter.innerHTML = 'Roku' //fire
+function extractAttacks(characterPlayer) {
+    let attacks
+    for(let i = 0; i < avatars.length; i++){
+        if(characterPlayer === avatars[i].nombre) {
+            attacks = avatars[i].attacks
+        }
     }
+    showAttacks(attacks)
+}
+
+function showAttacks(attacks) {
+    
+    attacks.forEach((attack) => {
+        attacksAvatar = `
+        <button id=${attack.id} class="attack-button" > ${attack.name} </button>
+        `
+        attacksContainer.innerHTML += attacksAvatar
+    })
+        buttonWater = document.getElementById('button-water')
+        buttonFire = document.getElementById('button-fire')
+        buttonEarth = document.getElementById('button-earth')
+        buttonAir = document.getElementById('button-air')
+
+  
+        buttonWater.addEventListener('click', attackWater)
+        buttonFire.addEventListener('click', attackFire)
+        buttonEarth.addEventListener('click', attackEarth)    
+        buttonAir.addEventListener('click', attackAir)
+}
+
+function selectEnemyCharacter(){
+    let randomCharacter = random(0, avatars.length - 1)
+
+    spanEnemyCharacter.innerHTML = avatars[randomCharacter].name
 }
 
 
@@ -125,44 +224,36 @@ function attackEnemyRand(){
     combat()
 }
 
-function createMessage(result){
-    
-    
-    let sectionMessage = document.getElementById('messages')
 
-    let paragraph = document.createElement('p')
+function createMessage(result){
+
+    let newPlayerAttack = document.createElement('p')
+    let newEnemyAttack = document.createElement('p')
     
-    paragraph.innerHTML = 'You used ' + attackPlayer + ', your enemy used ' + attackEnemy +' .' + result
- 
-    sectionMessage.appendChild(paragraph)
+    sectionMessage.innerHTML = result
+    newPlayerAttack.innerHTML = attackPlayer
+    newEnemyAttack.innerHTML = attackEnemy
+    
+    playersAttack.appendChild(newPlayerAttack)
+    enemysAttack.appendChild(newEnemyAttack)
 }
 
 function createFinalMessage(finalResult){
-    let sectionMessage = document.getElementById('messages')
-
-    let paragraph = document.createElement('p')
     
-    paragraph.innerHTML = finalResult
+    sectionMessage.innerHTML = finalResult
  
-    sectionMessage.appendChild(paragraph)
-
-    let buttonWater = document.getElementById('button-water')
     buttonWater.disabled = true
 
-    let buttonFire = document.getElementById('button-fire')
     buttonFire.disabled = true
 
-    let buttonEarth = document.getElementById('button-earth')
     buttonEarth.disabled = true
 
-    let buttonAir = document.getElementById('button-air')
     buttonAir.disabled = true
+
+    sectionReset.style.display = 'block'
 }
 
-
 function combat(){
-    let spanLivesPlayer = document.getElementById('lives-player')
-    let spanLivesEnemy = document.getElementById('lives-enemy')
 
     if(attackEnemy == attackPlayer){
         createMessage(" TIE")
@@ -178,17 +269,19 @@ function combat(){
 
     checkLives()
 }
+
     
 function checkLives(){
     if(livesEnemy == 0){
-        createFinalMessage("You win 😃")
+        createFinalMessage("Your avatar won this battle 😃")
     } else if(livesPlayer == 0){
-        createFinalMessage("You lose 😞")
+        createFinalMessage("Game Over 😞")
     }
-    let buttonResetGame = document.getElementById('button-reset')
-    buttonResetGame.disabled = false
+    /* let buttonResetGame = document.getElementById('button-reset')
+    buttonResetGame.disabled = false */
 
 }
+
 
 function resetGame(){
     location.reload()
