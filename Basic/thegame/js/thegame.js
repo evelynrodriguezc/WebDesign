@@ -1,5 +1,5 @@
 const sectionSelectAttack = document.getElementById('selector-attack')
-const sectionRestart = document.getElementById('restar')
+const sectionRestart = document.getElementById('restart')
 const buttonAvatarPlayer = document.getElementById('start-button')
 const buttonRestart = document.getElementById('restart-button')
 
@@ -86,13 +86,13 @@ roku.attacks.push(
 
 avatars.push(aang, kiyoshi, korra, roku)
 
-function iniciarJuego() {
+function startGame() {
     
     sectionSelectAttack.style.display = 'none'
 
     avatars.forEach((avatar) => {
         optionsAvatars = `
-        <input type="radio" name="mascota" id=${avatar.name} />
+        <input type="radio" name="avatar" id=${avatar.name} />
         <label class="cards-avatars" for=${avatar.name}>
             <p>${avatar.name}</p>
             <img src=${avatar.image} alt=${avatar.name}>
@@ -107,7 +107,7 @@ function iniciarJuego() {
 
     })
     
-    buttonAvatarPlayer.addEventListener('click', seleccionarMascotaJugador)
+    buttonAvatarPlayer.addEventListener('click',  selectAvatarPlayer)
 
     
     
@@ -116,7 +116,7 @@ function iniciarJuego() {
     buttonRestart.addEventListener('click', restartGame)
 }
 
-function seleccionarMascotaJugador() {
+function  selectAvatarPlayer() {
     
     sectionSelectAvatar.style.display = 'none'
     
@@ -300,4 +300,4 @@ function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
-window.addEventListener('load', iniciarJuego)
+window.addEventListener('load', startGame)
