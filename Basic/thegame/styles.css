@@ -10,50 +10,37 @@
 body {
     font-family: 'Carme', sans-serif;
     background-color: #FFEFCF;
-}
-
-
-}
-
-.title {
-    color: #07031A;
-    font-size: 50px;
-    margin-top: 50px;
-    font-family: 'Carme', sans-serif;
-}
-
-.subtitle{
-    color: #07031A;
-    font-size: 26px;
-    margin-top: 55px;
-}
-
-.cards, .attacks-cards{
-   display: flex; 
-   gap: 10px; 
-   margin: 20px;
-}
-
-
-#character-picker {
+  }
+  
+#select-avatar {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+  }
+  
+.title {
+    color: #07031A;
+    font-size: 50px;
+    margin-top: 50px;
+    font-family: 'Carme', sans-serif; 
 }
-
-
-#button-character{
-    width: 120px;
-    height: 40px;
-    border-radius: 20px;
-    background: #ffe5b2;
-    font-family: 'Carme', sans-serif;
-    margin-top: 35px;
-    font-size: medium;
+  
+.subtitle {
+    color: #07031A;
+    font-size: 26px;
+    margin-top: 55px;
 }
+  
+.cards-avatars, .cards-attacks {
+    display: flex; 
+    gap: 10px; 
+    margin: 20px;
+    flex-direction: row;
 
-.avatars-card{
+}
+  
+.cards-avatars {
     width: 260px;
     height: 190px;
     background: #FF7A00;
@@ -66,35 +53,52 @@ body {
     justify-content: center;
     align-items: center;
     font-size: x-large;
-}
+  }
+  
+.cards-avatars img {
+    width: 150px;
+  }
 
-.avatars-card:hover {
-    /* background-color: #d44000b8; */
+.cards-avatars:hover {
     border: 4px solid #864000;
 } 
 
-
-.avatars-card img{
-    width: 150px;
+#start-button {
+    width: 120px;
+    height: 40px;
+    border-radius: 20px;
+    background: #ffe5b2;
+    font-family: 'Carme', sans-serif;
+    margin-top: 35px;
+    font-size: medium;
 }
 
-input{
+#start-button:hover{
+    background-color: #D44000;
+    color: #FFEFCF;
+}
+
+#button-reset:hover {
+    background-color: #6E3B3B;
+    color: #FFEFCF;
+}
+  
+input {
     display: none;
 }
-
-input:checked + label{
+  
+input:checked + label {
     background-color: #D44000;
     border: 10px double #864000;
-
 }
-
-#attack-picker{
+  
+#selector-attack {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
-
-.attack-button{
+  
+.button-attack {
     background-color: #cc7222;
     border-radius: 30px;
     padding: 15px;
@@ -106,18 +110,13 @@ input:checked + label{
     font-size: medium;
     display: flex;
     justify-content: center;
-}
+  }
 
-.attack-button:hover{
+  .button-attack:hover{
     background-color: #bb7a40e8;
 }
-
-#button-character:hover{
-    background-color: #D44000;
-    color: #FFEFCF;
-}
-
-#messages{
+  
+  #messages {
     width: 400px;
     padding: 20px;
     margin: 20px;
@@ -126,20 +125,20 @@ input:checked + label{
     align-items: center;
     font-size: medium;
     flex-direction: column;
-}
+  }
 
-#result{
-    font-size: x-large;
-}
+  #result{
+      font-size: x-large;
+  }
 
-#reset {
+  #reset {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
-
-#button-reset{
+  
+  #restart-button {
     background: lightgray;
     padding: 5px;
     width: 70px;
@@ -149,41 +148,38 @@ input:checked + label{
     font-family: 'Carme', sans-serif;
     border-radius: 20px;
     box-sizing: border-box;
-}
-
-#button-reset:hover {
-    background-color: #6E3B3B;
-    color: #FFEFCF;
-}
-
-.attacks{
+  }
+  
+  .attacks {
     display: grid;
     grid-template-columns: 100px 100px;
     text-align: center;
     font-size: medium;
-    
-}
-
-#character-player, #character-enemy{
+  }
+  
+  #lives-player, #lives-enemy {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+  
+#avatar-player, #avatar-enemy {
     font-size: x-large;
 }
 
-#lives-player, #lives-enemy{
-    font-size: 32px;
-    margin-bottom: 10px;
-}
-
-
-
- .history-player, .history-enemy{
+  .history-player, .history-enemy {
     display: flex;
     flex-direction: column;
     align-items: center;
-} 
-
-
-@media (max-width: 414px){
-    .cards, .attacks-cards{
-        flex-direction: column;
-    }
+  }
+  
+.cards-avatars-window{
+    display: flex;
+    flex-direction: row;
 }
+
+
+  @media (max-width: 414px) {
+    .cards-avatars, .cards-attacks, .cards-avatars-window{
+      flex-direction: column;
+    }
+  }

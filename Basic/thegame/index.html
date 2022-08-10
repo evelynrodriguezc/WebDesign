@@ -1,49 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-    <title>Avatar's Game</title>
-    <link rel="stylesheet" href="./styles.css">
-</head>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Avatar's Game</title>
+        <link rel="stylesheet" href="./styles.css"> 
+    </head>
     <body>
-        <section id="character-picker">
-            <h1 class="title">Avatar's Game</h1>
+        <section id="select-avatar">
+            <h1 class="title">Avatar's Game</h1> 
 
-            <h2 class="subtitle">Choose your avatar: </h2>
+            <h2 class="subtitle">Choose your avatar:</h2>
 
-            <div id='cardsContainer' class="cards">
-
+            <div id='containerCards' class="cards-avatars-window">
+                
             </div>
-            
-            <button id="button-character">Start</button>
+
+            <button id="start-button">Start</button>
         </section>
 
-        <section id="attack-picker">
+        <section id="selector-attack">
             <h1 class="title">Avatar's Game</h1>
-            <h2 class="subtitle">Choose your attack element: </h2>
 
-            <div id="attacksContainer" class="attacks-cards">
-        
+            <h2 class="subtitle">Choose your attack element:</h2>
+
+            <div id='containerAttacks' class="cards-attacks">
+
             </div>
 
             <div id="messages">
                 <p id="result">Good luck!</p>
-                <section id="reset">
-                    <button id="button-reset">Restart</button>
+
+                <section id="restart">
+                    <button id="restart-button">Restart</button>
                 </section>
-            </div> 
-            
+            </div>
+
             <div class="attacks">
                 <div class="history-player">
-                    <p id="character-player"></p>
-                    <p id="lives-player">3</p>
+                    <p id="avatar-player"></p>
+                    <p id="lives-player">5</p>
                     <div id="attacks-player"></div>
                 </div>
                 <div class="history-enemy">
-                    <p id="character-enemy"></p>
-                    <p id="lives-enemy">3</p>
+                    <p id="avatar-enemy"></p>
+                    <p id="lives-enemy">5</p>
                     <div id="attacks-enemy"></div>
                 </div>
             </div>
