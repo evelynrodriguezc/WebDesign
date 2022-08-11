@@ -31,6 +31,7 @@ let buttonFire
 let buttonWater
 let buttonEarth
 let buttonAir
+let buttons = []
 let livesPlayer = 5
 let livesEnemy = 5
 
@@ -160,7 +161,7 @@ function extractAttacks(avatarEnemy) {
 function showAttacks(attacks) {
     attacks.forEach((attack) => {
         attacksAvatar = `
-        <button id=${attack.id} class="button-attack">${attack.name}</button>
+        <button id=${attack.id} class="button-attack Battack">${attack.name}</button>
         `
         containerAttacks.innerHTML += attacksAvatar
     })
@@ -169,6 +170,8 @@ function showAttacks(attacks) {
      buttonWater = document.getElementById('button-water')
      buttonEarth = document.getElementById('button-earth')
      buttonAir = document.getElementById('button-air')
+     buttons = document.querySelectorAll('.Battack')
+
 
      buttonFire.addEventListener('click', attackFire)
     
@@ -178,6 +181,10 @@ function showAttacks(attacks) {
 
      buttonAir.addEventListener('click', attackAir)
 }
+
+/* function sequenceAttack(){
+
+} */
 
 function selectAvatarEnemy() {
     let randomAvatar = random(0, avatars.length -1)
