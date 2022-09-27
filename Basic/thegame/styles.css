@@ -104,7 +104,7 @@ input:checked + label {
     margin-top: 20px;
     box-sizing: border-box;
     border-color: transparent;
-    width: 100px;
+    width: 80px;
     color: #FFEFCF;
     font-size: medium;
     display: flex;

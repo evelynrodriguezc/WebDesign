@@ -18,8 +18,8 @@ const containerCards = document.getElementById('containerCards')
 const containerAttacks = document.getElementById('containerAttacks')
 
 let avatars = []
-let attackByPlayer
-let attackByEnemy
+let attackByPlayer = []
+let attackByEnemy = []
 let optionsAvatars
 let inputAang
 let inputKiyoshi
@@ -27,11 +27,16 @@ let inputKorra
 let inputRoku
 let avatarEnemy
 let attacksAvatar
+let attacksAvatarEnemy
 let buttonFire
 let buttonWater
 let buttonEarth
 let buttonAir
 let buttons = []
+let indexAttackPlayer
+let indexAttackEnemy
+let winsPlayer = 0
+let winsEnemy = 0
 let livesPlayer = 5
 let livesEnemy = 5
 
@@ -109,10 +114,6 @@ function startGame() {
     })
     
     buttonAvatarPlayer.addEventListener('click',  selectAvatarPlayer)
-
-    
-    
-
     
     buttonRestart.addEventListener('click', restartGame)
 }
@@ -161,7 +162,7 @@ function extractAttacks(avatarEnemy) {
 function showAttacks(attacks) {
     attacks.forEach((attack) => {
         attacksAvatar = `
-        <button id=${attack.id} class="button-attack Battack">${attack.name}</button>
+        <button id=${attack.id} class="button-attack BAttack">${attack.name}</button>
         `
         containerAttacks.innerHTML += attacksAvatar
     })
@@ -170,101 +171,112 @@ function showAttacks(attacks) {
      buttonWater = document.getElementById('button-water')
      buttonEarth = document.getElementById('button-earth')
      buttonAir = document.getElementById('button-air')
-     buttons = document.querySelectorAll('.Battack')
-
-
-     buttonFire.addEventListener('click', attackFire)
-    
-     buttonWater.addEventListener('click', attackWater)
+     buttons = document.querySelectorAll('.BAttack')
      
-     buttonEarth.addEventListener('click', attackEarth)
-
-     buttonAir.addEventListener('click', attackAir)
 }
 
-/* function sequenceAttack(){
-
-} */
+function sequenceAttack(){
+    buttons.forEach((button) => {
+        button.addEventListener('click', (e) => {
+            if(e.target.textContent === '🔥'){
+                attackByPlayer.push('FIRE')
+                console.log(attackByPlayer)
+                button.style.background = '#112F58'
+                button.disabled = true
+            }else if(e.target.textContent === '💧'){
+                attackByPlayer.push('WATER')
+                console.log(attackByPlayer)
+                button.style.background = '#112F58'
+                button.disabled = true
+            }else if(e.target.textContent === '🪨'){
+                attackByPlayer.push('EARTH')
+                console.log(attackByPlayer)
+                button.style.background = '#112F58'
+                button.disabled = true
+            }else {
+                attackByPlayer.push('AIR')
+                console.log(attackByPlayer)
+                button.style.background = '#112F58'
+                button.disabled = true
+            }
+            attackEnemyRand()  
+        })
+    })
+}
 
 function selectAvatarEnemy() {
     let randomAvatar = random(0, avatars.length -1)
 
     spanAvatarEnemy.innerHTML = avatars[randomAvatar].name
-}
-
-function attackFire() {
-    attackByPlayer = 'FIRE'
-    attackEnemyRand()
-}
-function attackWater() {
-    attackByPlayer = 'WATER'
-    attackEnemyRand()
-}
-function attackEarth() {
-    attackByPlayer = 'EARTH'
-    attackEnemyRand()
-}
-
-function attackAir() {
-    attackByPlayer = 'AIR'
-    attackEnemyRand()
+    attacksAvatarEnemy = avatars[randomAvatar].attacks
+    sequenceAttack()
 }
 
 function attackEnemyRand() {
-    let attackRandom = random(1,4)
+    let attackRandom = random(0, attacksAvatarEnemy.length - 1)
     
-    if (attackRandom == 1) {
-        attackByEnemy = 'FIRE'
-    } else if (attackRandom == 2) {
-        attackByEnemy = 'WATER'
-    } else if (attackRandom == 3) {
-        attackByEnemy = 'EARTH'
+    if (attackRandom == 0 || attackRandom == 1) {
+        attackByEnemy.push('FIRE')
+    } else if (attackRandom == 2 || attackRandom == 3) {
+        attackByEnemy.push('WATER')
+    } else if (attackRandom == 4 || attackRandom == 5) {
+        attackByEnemy.push('EARTH')
     } else {
-        attackByEnemy = 'AIR'
+        attackByEnemy.push('AIR')
     }
+    console.log(attackByEnemy)
+    startCombat()
+}
 
-    combat()
+function startCombat(){
+    if(attackByPlayer.length === 5){
+        combat()
+    }
+}
+
+function indexBothPlayers(player, enemy){
+    indexAttackPlayer = attackByPlayer[player]
+    indexAttackEnemy = attackByEnemy[enemy]
 }
 
 function combat() {
     
-    
-    if(attackByEnemy == attackByPlayer) {
-        createMessage("TIE")
-    } else if(attackByPlayer == 'FIRE' && attackByEnemy == 'EARTH') {
-        createMessage("You win")
-        livesEnemy--
-        spanLivesEnemy.innerHTML = livesEnemy
-    } else if(attackByPlayer == 'WATER' && attackByEnemy == 'FIRE') {
-        createMessage("You win")
-        livesEnemy--
-        spanLivesEnemy.innerHTML = livesEnemy
-    } else if(attackByPlayer == 'EARTH' && attackByEnemy == 'WATER') {
-        createMessage("You win")
-        livesEnemy--
-        spanLivesEnemy.innerHTML = livesEnemy
-    } else if(attackByPlayer == 'WATER' && attackByEnemy == 'FIRE') {
-        createMessage("You win")
-        livesEnemy--
-        spanLivesEnemy.innerHTML = livesEnemy
-    } else if(attackByPlayer == 'AIR' && attackByEnemy == 'WATER') {
-        createMessage("You win")
-        livesEnemy--
-        spanLivesEnemy.innerHTML = livesEnemy
-    } else {
-        createMessage("You lose")
-        livesPlayer--
-        spanLivesPlayer.innerHTML = livesPlayer
+    for(let index = 0; index < attackByPlayer.length; index++){
+        if(attackByPlayer[index] === attackByEnemy[index]){
+            indexBothPlayers(index, index)
+            createMessage("TIE")
+        } else if(attackByPlayer[index] === 'FIRE' && attackByEnemy[index] === 'EARTH'){
+            indexBothPlayers(index, index)
+            createMessage("You win")
+            winsPlayer++
+            spanLivesPlayer.innerHTML = winsPlayer
+        } else if(attackByPlayer[index] === 'WATER' && attackByEnemy[index] === 'FIRE'){
+            indexBothPlayers(index, index)
+            createMessage("You win")
+            winsPlayer++
+            spanLivesPlayer.innerHTML = winsPlayer
+        } else if (attackByPlayer[index] == 'AIR' && attackByEnemy[index] == 'WATER'){
+            indexBothPlayers(index, index)
+            createMessage("You win")
+            winsPlayer++
+            spanLivesPlayer.innerHTML = winsPlayer
+        } else {
+            indexBothPlayers(index, index)
+            createMessage("You lose")
+            winsEnemy++
+            spanLivesEnemy.innerHTML = winsEnemy
+        }
     }
-
     checkLives()
 }
 
 function checkLives() {
-    if (livesEnemy == 0) {
-        createFinalMessage("Congrats! You win :)")
-    } else if (livesPlayer == 0) {
-        createFinalMessage('Sorry, You lose :(')
+    if (winsPlayer === winsEnemy) {
+        createFinalMessage("It is a TIE!")
+    } else if (winsPlayer > winsEnemy) {
+        createFinalMessage("Congrats, You win c:")
+    } else {
+        createFinalMessage("Sorry, You lose :c")
     }
 }
 
@@ -275,8 +287,8 @@ function createMessage(result) {
     let newAttackByEnemy = document.createElement('p')
 
     sectionMessages.innerHTML = result
-    newAttackByPlayer.innerHTML = attackByPlayer
-    newAttackByEnemy.innerHTML = attackByEnemy
+    newAttackByPlayer.innerHTML = indexAttackPlayer
+    newAttackByEnemy.innerHTML = indexAttackEnemy
 
     attacksByPlayer.appendChild(newAttackByPlayer)
     attacksByEnemy.appendChild(newAttackByEnemy)
@@ -287,15 +299,6 @@ function createFinalMessage(finalResult) {
     
     sectionMessages.innerHTML = finalResult
 
-    
-    buttonFire.disabled = true
-    
-    buttonWater.disabled = true
-    
-    buttonEarth.disabled = true
-
-    buttonAir.disabled = true
-    
     sectionRestart.style.display = 'block'
 }
 
