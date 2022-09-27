@@ -21,6 +21,14 @@
         <section id="view-map">
             <h1 class="title">Move around the map with your Avatar</h1>
             <canvas id="map"></canvas>
+            <button onmouseup="stopMovement()"
+            onmousedown="moveDOWN()">⬇️</button>
+            <button onmouseup="stopMovement()"
+            onmousedown="moveUP()">⬆️</button>
+            <button onmouseup="stopMovement()"
+            onmousedown="moveR()">➡️</button>
+            <button onmouseup="stopMovement()"
+            onmousedown="moveL()">⬅️</button>
         </section>
 
         <section id="selector-attack">

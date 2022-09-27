@@ -28,7 +28,8 @@ let inputAang
 let inputKiyoshi
 let inputKorra
 let inputRoku
-let avatarEnemy
+let avatarPlayer
+let avatarPlayerObject
 let attacksAvatar
 let attacksAvatarEnemy
 let buttonFire
@@ -40,10 +41,13 @@ let indexAttackPlayer
 let indexAttackEnemy
 let winsPlayer = 0
 let winsEnemy = 0
-let livesPlayer = 5
-let livesEnemy = 5
+let livesPlayer = 3
+let livesEnemy = 3
 
 let canvas = map.getContext("2d")
+let interval
+let mapBackground = new Image()
+mapBackground.src = './assets/map1.png'
 
 class Avatar {
     constructor(name, image, lives) {
@@ -51,6 +55,14 @@ class Avatar {
         this.image = image
         this.lives = lives
         this.attacks = []
+        this.x = 20
+        this.y = 30
+        this.width = 100
+        this.height = 150
+        this.mapImage = new Image()
+        this.mapImage.src = image
+        this.speedX = 0
+        this.speedY = 0
     }
 }
 
@@ -128,46 +140,36 @@ function  selectAvatarPlayer() {
     
     sectionSelectAvatar.style.display = 'none'
     
-    
     //sectionSelectAttack.style.display = 'flex'
     
-    sectionViewMap.style.display = 'flex'
-    let imageAang = new Image()
-    imageAang.src = aang.image
-    canvas.drawImage(
-        imageAang,
-        20,
-        40,
-        120,
-        120
-    )
-        
     
     if (inputAang.checked) {
         spanAvatarPlayer.innerHTML = inputAang.id
-        avatarEnemy = inputAang.id
+        avatarPlayer = inputAang.id
     } else if (inputKiyoshi.checked) {
         spanAvatarPlayer.innerHTML = inputKiyoshi.id
-        avatarEnemy = inputKiyoshi.id
+        avatarPlayer = inputKiyoshi.id
     } else if (inputKorra.checked) {
         spanAvatarPlayer.innerHTML = inputKorra.id
-        avatarEnemy = inputKorra.id
+        avatarPlayer = inputKorra.id
     } else if (inputRoku.checked) {
         spanAvatarPlayer.innerHTML = inputRoku.id
-        avatarEnemy = inputRoku.id
+        avatarPlayer = inputRoku.id
     } 
     else {
         alert('Choose your avatar')
     }
 
-    extractAttacks(avatarEnemy)
+    extractAttacks(avatarPlayer)
+    sectionViewMap.style.display = 'flex'
+    startMap()
     selectAvatarEnemy()
 }
 
-function extractAttacks(avatarEnemy) {
+function extractAttacks(avatarPlayer) {
     let attacks
     for (let i = 0; i < avatars.length; i++) {
-        if (avatarEnemy === avatars[i].name) {
+        if (avatarPlayer === avatars[i].name) {
             attacks = avatars[i].attacks
         }
         
@@ -324,6 +326,94 @@ function restartGame() {
 
 function random(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
+}
+
+function drawCanvas(){
+
+    avatarPlayerObject.x = avatarPlayerObject.x + avatarPlayerObject.speedX
+    avatarPlayerObject.y = avatarPlayerObject.y + avatarPlayerObject.speedY
+    canvas.clearRect(0, 0, map.width, map.height)
+    canvas.drawImage(
+        mapBackground,
+        0,
+        0,
+        map.width,
+        map.height
+    )
+    canvas.drawImage(
+        avatarPlayerObject.mapImage,
+        avatarPlayerObject.x,
+        avatarPlayerObject.y,
+        avatarPlayerObject.width,
+        avatarPlayerObject.height
+    )
+}
+
+function moveUP(){
+    const avatarPlayerObject = obtainObjectAvatar()
+    avatarPlayerObject.speedY = -5
+}
+
+function moveDOWN(){
+    const avatarPlayerObject = obtainObjectAvatar()
+    avatarPlayerObject.speedY = 5
+}
+
+function moveR(){
+    const avatarPlayerObject = obtainObjectAvatar()
+    avatarPlayerObject.speedX = 5
+}
+
+function moveL(){
+    const avatarPlayerObject = obtainObjectAvatar()
+    avatarPlayerObject.speedX = -5
+}
+
+function stopMovement(){
+    avatarPlayerObject.speedX = 0
+    avatarPlayerObject.speedY = 0
+}
+
+function keyPressed(event){
+    switch(event.key){
+        case 'ArrowUp':
+            moveUP()
+            break
+        case 'ArrowDown':
+            moveDOWN()
+            break
+        case 'ArrowLeft':
+            moveL()
+            break
+        case 'ArrowRight':
+            moveR()
+            break
+        
+        default:
+            break
+    }
+}
+
+function startMap(){
+    map.width = 480
+    map.height = 380
+
+    avatarPlayerObject = obtainObjectAvatar(avatarPlayer)
+
+    console.log(avatarPlayerObject, avatarPlayer);
+
+    interval = setInterval(drawCanvas, 50)
+
+    window.addEventListener('keydown', keyPressed)
+    window.addEventListener('keyup', stopMovement)
+}
+
+function obtainObjectAvatar(){
+    for (let i = 0; i < avatars.length; i++) {
+        if (avatarPlayer === avatars[i].name) {
+            return avatars[i]
+        }
+    }
 }
 
 window.addEventListener('load', startGame)
