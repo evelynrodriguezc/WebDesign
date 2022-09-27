@@ -17,6 +17,9 @@ const attacksByEnemy = document.getElementById('attacks-enemy')
 const containerCards = document.getElementById('containerCards')
 const containerAttacks = document.getElementById('containerAttacks')
 
+const sectionViewMap = document.getElementById('view-map')
+const map = document.getElementById('map')
+
 let avatars = []
 let attackByPlayer = []
 let attackByEnemy = []
@@ -39,6 +42,8 @@ let winsPlayer = 0
 let winsEnemy = 0
 let livesPlayer = 5
 let livesEnemy = 5
+
+let canvas = map.getContext("2d")
 
 class Avatar {
     constructor(name, image, lives) {
@@ -95,6 +100,7 @@ avatars.push(aang, kiyoshi, korra, roku)
 function startGame() {
     
     sectionSelectAttack.style.display = 'none'
+    sectionViewMap.style.display = 'none'
 
     avatars.forEach((avatar) => {
         optionsAvatars = `
@@ -123,9 +129,19 @@ function  selectAvatarPlayer() {
     sectionSelectAvatar.style.display = 'none'
     
     
-    sectionSelectAttack.style.display = 'flex'
+    //sectionSelectAttack.style.display = 'flex'
     
-    
+    sectionViewMap.style.display = 'flex'
+    let imageAang = new Image()
+    imageAang.src = aang.image
+    canvas.drawImage(
+        imageAang,
+        20,
+        40,
+        120,
+        120
+    )
+        
     
     if (inputAang.checked) {
         spanAvatarPlayer.innerHTML = inputAang.id
