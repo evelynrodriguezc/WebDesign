@@ -2,6 +2,7 @@ const sectionSelectAttack = document.getElementById('selector-attack')
 const sectionRestart = document.getElementById('restart')
 const buttonAvatarPlayer = document.getElementById('start-button')
 const buttonRestart = document.getElementById('restart-button')
+sectionRestart.style.display = 'none'
 
 const sectionSelectAvatar = document.getElementById('select-avatar')
 const spanAvatarPlayer = document.getElementById('avatar-player')
@@ -41,40 +42,78 @@ let indexAttackPlayer
 let indexAttackEnemy
 let winsPlayer = 0
 let winsEnemy = 0
-let livesPlayer = 3
-let livesEnemy = 3
+
 
 let canvas = map.getContext("2d")
 let interval
 let mapBackground = new Image()
 mapBackground.src = './assets/map1.png'
+let expectedHeight 
+let widthMap = window.innerWidth - 20
+const widthMaxMap = 500
+
+if(widthMap > widthMaxMap){
+    widthMap = widthMaxMap - 20
+}
+
+expectedHeight = widthMap * 600 / 800
+
+map.width = widthMap
+map.height = expectedHeight
 
 class Avatar {
-    constructor(name, image, lives) {
+    constructor(name, image, lives, imgMap) {
         this.name = name
         this.image = image
         this.lives = lives
         this.attacks = []
-        this.x = 20
-        this.y = 30
         this.width = 100
         this.height = 150
+        this.x = random(0, map.width - this.width)
+        this.y = random(0, map.height - this.height)
         this.mapImage = new Image()
-        this.mapImage.src = image
+        this.mapImage.src = imgMap
         this.speedX = 0
         this.speedY = 0
     }
+
+    drawAvatar(){
+        canvas.drawImage(
+            this.mapImage,
+            this.x,
+            this.y,
+            this.width,
+            this.height
+        )
+    }
 }
 
-let aang = new Avatar('Aang', './assets/aang', 5)
+let aang = new Avatar('Aang', './assets/aang', 5, './assets/aang')
 
-let kiyoshi = new Avatar('Kiyoshi', './assets/kiyoshi', 5)
+let kiyoshi = new Avatar('Kiyoshi', './assets/kiyoshi', 5, './assets/kiyoshi')
 
-let korra = new Avatar('Korra', './assets/korra', 5)
+let korra = new Avatar('Korra', './assets/korra', 5, './assets/korra')
 
-let roku = new Avatar('Roku', './assets/roku', 5)
+let roku = new Avatar('Roku', './assets/roku', 5, './assets/roku')
+
+let aangEnemy = new Avatar('Aang', './assets/aang', 5, './assets/aang')
+
+let kiyoshiEnemy = new Avatar('Kiyoshi', './assets/kiyoshi', 5, './assets/kiyoshi')
+
+let korraEnemy = new Avatar('Korra', './assets/korra', 5, './assets/korra')
+
+let rokuEnemy = new Avatar('Roku', './assets/roku', 5, './assets/roku')
+
 
 aang.attacks.push(
+    { name: '🌬', id: 'button-air' },
+    { name: '🌬', id: 'button-air' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '💧', id: 'button-water' },
+    { name: '🪨', id: 'button-earth' },
+)
+
+aangEnemy.attacks.push(
     { name: '🌬', id: 'button-air' },
     { name: '🌬', id: 'button-air' },
     { name: '🔥', id: 'button-fire' },
@@ -88,7 +127,14 @@ kiyoshi.attacks.push(
     { name: '🌬', id: 'button-air' },
     { name: '💧', id: 'button-water' },
     { name: '🔥', id: 'button-fire' },
-    
+)
+
+kiyoshiEnemy.attacks.push(
+    { name: '🪨', id: 'button-earth' },
+    { name: '🪨', id: 'button-earth' },
+    { name: '🌬', id: 'button-air' },
+    { name: '💧', id: 'button-water' },
+    { name: '🔥', id: 'button-fire' },
 )
 
 korra.attacks.push(
@@ -99,7 +145,23 @@ korra.attacks.push(
     { name: '🌬', id: 'button-air' },
 )
 
+korraEnemy.attacks.push(
+    { name: '💧', id: 'button-water' },
+    { name: '💧', id: 'button-water' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🪨', id: 'button-earth' },
+    { name: '🌬', id: 'button-air' },
+)
+
 roku.attacks.push(
+    { name: '🔥', id: 'button-fire' },
+    { name: '🔥', id: 'button-fire' },
+    { name: '🪨', id: 'button-earth' },
+    { name: '💧', id: 'button-water' },
+    { name: '🌬', id: 'button-air' },
+)
+
+rokuEnemy.attacks.push(
     { name: '🔥', id: 'button-fire' },
     { name: '🔥', id: 'button-fire' },
     { name: '🪨', id: 'button-earth' },
@@ -118,7 +180,7 @@ function startGame() {
         optionsAvatars = `
         <input type="radio" name="avatar" id=${avatar.name} />
         <label class="cards-avatars" for=${avatar.name}>
-            <p>${avatar.name}</p>
+            <p class="pname-avatars">${avatar.name}</p>
             <img src=${avatar.image} alt=${avatar.name}>
         </label>
         `
@@ -139,8 +201,6 @@ function startGame() {
 function  selectAvatarPlayer() {
     
     sectionSelectAvatar.style.display = 'none'
-    
-    //sectionSelectAttack.style.display = 'flex'
     
     
     if (inputAang.checked) {
@@ -163,7 +223,6 @@ function  selectAvatarPlayer() {
     extractAttacks(avatarPlayer)
     sectionViewMap.style.display = 'flex'
     startMap()
-    selectAvatarEnemy()
 }
 
 function extractAttacks(avatarPlayer) {
@@ -172,7 +231,6 @@ function extractAttacks(avatarPlayer) {
         if (avatarPlayer === avatars[i].name) {
             attacks = avatars[i].attacks
         }
-        
     }
     showAttacks(attacks)
 }
@@ -222,15 +280,17 @@ function sequenceAttack(){
     })
 }
 
-function selectAvatarEnemy() {
-    let randomAvatar = random(0, avatars.length -1)
+function selectAvatarEnemy(enemy) {
+    //let randomAvatar = random(0, avatars.length -1)
 
-    spanAvatarEnemy.innerHTML = avatars[randomAvatar].name
-    attacksAvatarEnemy = avatars[randomAvatar].attacks
+    //spanAvatarEnemy.innerHTML = avatars[randomAvatar].name
+    spanAvatarEnemy.innerHTML = enemy.name
+    attacksAvatarEnemy = enemy.attacks
     sequenceAttack()
 }
 
 function attackEnemyRand() {
+    console.log('Enemy attack', attacksAvatarEnemy)
     let attackRandom = random(0, attacksAvatarEnemy.length - 1)
     
     if (attackRandom == 0 || attackRandom == 1) {
@@ -292,9 +352,9 @@ function checkLives() {
     if (winsPlayer === winsEnemy) {
         createFinalMessage("It is a TIE!")
     } else if (winsPlayer > winsEnemy) {
-        createFinalMessage("Congrats, You win c:")
+        createFinalMessage("Congrats 🎉, You win")
     } else {
-        createFinalMessage("Sorry, You lose :c")
+        createFinalMessage("Sorry, You lose 😣")
     }
 }
 
@@ -340,13 +400,18 @@ function drawCanvas(){
         map.width,
         map.height
     )
-    canvas.drawImage(
-        avatarPlayerObject.mapImage,
-        avatarPlayerObject.x,
-        avatarPlayerObject.y,
-        avatarPlayerObject.width,
-        avatarPlayerObject.height
-    )
+    avatarPlayerObject.drawAvatar()
+    aangEnemy.drawAvatar()
+    kiyoshiEnemy.drawAvatar()
+    korraEnemy.drawAvatar()
+    rokuEnemy.drawAvatar()
+
+    if(avatarPlayerObject.speedX !== 0 || avatarPlayerObject.speedY !== 0){
+        reviewCollision(aangEnemy)
+        reviewCollision(kiyoshiEnemy)
+        reviewCollision(korraEnemy)
+        reviewCollision(rokuEnemy)
+    }
 }
 
 function moveUP(){
@@ -395,13 +460,9 @@ function keyPressed(event){
 }
 
 function startMap(){
-    map.width = 480
-    map.height = 380
 
     avatarPlayerObject = obtainObjectAvatar(avatarPlayer)
-
     console.log(avatarPlayerObject, avatarPlayer);
-
     interval = setInterval(drawCanvas, 50)
 
     window.addEventListener('keydown', keyPressed)
@@ -414,6 +475,41 @@ function obtainObjectAvatar(){
             return avatars[i]
         }
     }
+}
+
+function reviewCollision(enemy){
+    const upEnemy = 
+        enemy.y
+    const downEnemy = 
+        enemy.y + enemy.height
+    const rightEnemy = 
+        enemy.x + enemy.width
+    const leftEnemy = 
+        enemy.x
+
+    const upAvatar = 
+        avatarPlayerObject.y
+    const downAvatar = 
+        avatarPlayerObject.y + avatarPlayerObject.height
+    const rightAvatar = 
+        avatarPlayerObject.x + avatarPlayerObject.width
+    const leftAvatar = 
+        avatarPlayerObject.x
+
+    if(
+        downAvatar < upEnemy || 
+        upAvatar > downEnemy ||
+        rightAvatar < leftEnemy ||
+        leftAvatar > rightEnemy
+    ){
+        return;
+    } 
+    stopMovement()
+    clearInterval(interval)
+    console.log('There is a collision');
+    sectionSelectAttack.style.display = 'flex'
+    sectionViewMap.style.display = 'none'
+    selectAvatarEnemy(enemy)
 }
 
 window.addEventListener('load', startGame)

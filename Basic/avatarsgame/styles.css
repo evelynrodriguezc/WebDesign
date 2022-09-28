@@ -31,7 +31,8 @@ body {
     font-size: 26px;
     margin-top: 55px;
 }
-  
+
+
 .cards-avatars, .cards-attacks {
     display: flex; 
     gap: 10px; 
@@ -44,7 +45,7 @@ body {
     height: 190px;
     background: #FF7A00;
     padding: 10px;
-    margin: 10px;
+    /*margin: 10px;*/
     border: transparent;
     border-radius: 20px;
     color: #FFEFCF;
@@ -52,7 +53,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: x-large;
-  }
+}
   
 .cards-avatars img {
     width: 150px;
@@ -109,13 +110,13 @@ input:checked + label {
     font-size: medium;
     display: flex;
     justify-content: center;
-  }
+}
 
-  .button-attack:hover{
+.button-attack:hover{
     background-color: #bb7a40e8;
 }
   
-  #messages {
+#messages {
     width: 400px;
     padding: 20px;
     margin: 20px;
@@ -124,20 +125,20 @@ input:checked + label {
     align-items: center;
     font-size: medium;
     flex-direction: column;
-  }
+}
 
-  #result{
+#result{
       font-size: x-large;
-  }
+}
 
-  #reset {
+#restart {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
   
-  #restart-button {
+#restart-button {
     background: lightgray;
     padding: 5px;
     width: 70px;
@@ -147,16 +148,16 @@ input:checked + label {
     font-family: 'Carme', sans-serif;
     border-radius: 20px;
     box-sizing: border-box;
-  }
+}
   
-  .attacks {
+.attacks {
     display: grid;
     grid-template-columns: 100px 100px;
     text-align: center;
     font-size: medium;
-  }
+}
   
-  #lives-player, #lives-enemy {
+#lives-player, #lives-enemy {
     font-size: 32px;
     margin-bottom: 10px;
   }
@@ -165,11 +166,11 @@ input:checked + label {
     font-size: x-large;
 }
 
-  .history-player, .history-enemy {
+.history-player, .history-enemy {
     display: flex;
     flex-direction: column;
     align-items: center;
-  }
+}
   
 .cards-avatars-window{
     display: flex;
@@ -182,13 +183,27 @@ input:checked + label {
   justify-content: center;
 }
 
-#map{
-  border: 2px solid gray;
+#view-map button{
+  width: 80px;
+  height: 40px;
+  border-radius: 20px;
+  background: #ffe5b2;
+  font-family: 'Carme', sans-serif;
+  margin: 6px 2px;
+  font-size: medium;
 }
 
 
-  @media (max-width: 414px) {
-    .cards-avatars, .cards-attacks, .cards-avatars-window{
+@media (max-width: 560px) {
+    .cards-avatars, .cards-attacks, .cards-avatars-window {
       flex-direction: column;
-    }
   }
+}
+
+@media (max-width: 300px){
+    #view-map div{
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+  }
+}
