@@ -196,12 +196,25 @@ function startGame() {
     buttonAvatarPlayer.addEventListener('click',  selectAvatarPlayer)
     
     buttonRestart.addEventListener('click', restartGame)
+
+    joinGame()
+}
+
+function joinGame(){
+    fetch("http://localhost:8080/join")
+        .then(function (res) {
+            if(res.ok){
+                res.text()
+                    .then(function (response) {
+                        console.log(response)
+            })
+        }
+    })
 }
 
 function  selectAvatarPlayer() {
     
     sectionSelectAvatar.style.display = 'none'
-    
     
     if (inputAang.checked) {
         spanAvatarPlayer.innerHTML = inputAang.id
@@ -220,9 +233,15 @@ function  selectAvatarPlayer() {
         alert('Choose your avatar')
     }
 
+    selectCharacter(avatarPlayer)
+
     extractAttacks(avatarPlayer)
     sectionViewMap.style.display = 'flex'
     startMap()
+}
+
+function selectCharacter(avatarPlayer) {
+    fetch(`https://localhost:8080/avatar/${playerID}`)
 }
 
 function extractAttacks(avatarPlayer) {
