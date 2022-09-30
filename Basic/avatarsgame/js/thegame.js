@@ -21,6 +21,7 @@ const containerAttacks = document.getElementById('containerAttacks')
 const sectionViewMap = document.getElementById('view-map')
 const map = document.getElementById('map')
 
+let playerID = null 
 let avatars = []
 let attackByPlayer = []
 let attackByEnemy = []
@@ -67,8 +68,8 @@ class Avatar {
         this.image = image
         this.lives = lives
         this.attacks = []
-        this.width = 100
-        this.height = 150
+        this.width = 80
+        this.height = 80
         this.x = random(0, map.width - this.width)
         this.y = random(0, map.height - this.height)
         this.mapImage = new Image()
@@ -207,6 +208,7 @@ function joinGame(){
                 res.text()
                     .then(function (response) {
                         console.log(response)
+                        playerID = response
             })
         }
     })
@@ -241,7 +243,15 @@ function  selectAvatarPlayer() {
 }
 
 function selectCharacter(avatarPlayer) {
-    fetch(`https://localhost:8080/avatar/${playerID}`)
+    fetch(`http://localhost:8080/avatar/${playerID}`,{
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            avatar: avatarPlayer
+        })
+    })
 }
 
 function extractAttacks(avatarPlayer) {
@@ -420,6 +430,9 @@ function drawCanvas(){
         map.height
     )
     avatarPlayerObject.drawAvatar()
+    
+    sendPosition(avatarPlayerObject.x, avatarPlayerObject.y)
+
     aangEnemy.drawAvatar()
     kiyoshiEnemy.drawAvatar()
     korraEnemy.drawAvatar()
@@ -432,6 +445,19 @@ function drawCanvas(){
         reviewCollision(rokuEnemy)
     }
 }
+
+function sendPosition(x, y){
+    fetch(`http://localhost:8080/avatar/${playerID}/position`,{
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            x,
+            y
+        })
+    })
+}  
 
 function moveUP(){
     const avatarPlayerObject = obtainObjectAvatar()
