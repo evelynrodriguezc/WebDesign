@@ -174,7 +174,7 @@ function startGame() {
 }
 
 function joinGame(){
-    fetch("http://localhost:8080/join")
+    fetch("http://192.168.1.61:8080/join")
         .then(function (res) {
             if(res.ok){
                 res.text()
@@ -217,7 +217,7 @@ function  selectAvatarPlayer() {
 }
 
 function selectCharacter(avatarPlayer) {
-    fetch(`http://localhost:8080/avatar/${playerID}`,{
+    fetch(`http://192.168.1.61:8080/avatar/${playerID}`,{
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -287,7 +287,7 @@ function sequenceAttack(){
 }
 
 function sendAttacks(){
-    fetch(`http://localhost:8080/avatar/${playerID}/attacks`, {
+    fetch(`http://192.168.1.61:8080/avatar/${playerID}/attacks`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -300,7 +300,7 @@ function sendAttacks(){
 }
 
 function obtainAttacks(){
-    fetch(`http://localhost:8080/avatar/${enemyID}/attacks`)
+    fetch(`http://192.168.1.61:8080/avatar/${enemyID}/attacks`)
     .then(function(res){
         if(res.ok){
             res.json()
@@ -445,7 +445,7 @@ function drawCanvas(){
 }
 
 function sendPosition(x, y){
-    fetch(`http://localhost:8080/avatar/${playerID}/position`,{
+    fetch(`http://192.168.1.61:8080/avatar/${playerID}/position`,{
         method: "post",
         headers: {
             "Content-Type": "application/json"
