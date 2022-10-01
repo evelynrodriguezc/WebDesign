@@ -188,7 +188,6 @@ function joinGame(){
 
 function  selectAvatarPlayer() {
     
-    sectionSelectAvatar.style.display = 'none'
     
     if (inputAang.checked) {
         spanAvatarPlayer.innerHTML = inputAang.id
@@ -205,7 +204,10 @@ function  selectAvatarPlayer() {
     } 
     else {
         alert('Choose your avatar')
+        return
     }
+
+    sectionSelectAvatar.style.display = 'none'
 
     selectCharacter(avatarPlayer)
 

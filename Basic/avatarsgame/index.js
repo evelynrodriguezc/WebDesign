@@ -6,6 +6,7 @@ const { application } = require("express")
 const app = express()
 const port = 8080
 
+app.use(express.static('public'))
 app.use(cors())
 app.use(express.json())
 
@@ -19,7 +20,7 @@ class Player {
     assignAvatar(avatar){
         this.avatar = avatar
     }
-    
+
     updatePosition(x, y){
         this.x = x
         this.y = y
