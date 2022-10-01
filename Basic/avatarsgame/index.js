@@ -1,6 +1,7 @@
 
 const express = require("express")
 const cors = require("cors")
+const { application } = require("express")
 
 const app = express()
 const port = 8080
@@ -14,12 +15,18 @@ class Player {
     constructor(id){
         this.id = id
     }
+
     assignAvatar(avatar){
         this.avatar = avatar
     }
+    
     updatePosition(x, y){
         this.x = x
         this.y = y
+    }
+
+    assignAttacks(attacks){
+        this.attacks = attacks
     }
 }
 
@@ -75,6 +82,25 @@ app.post("/avatar/:playerID/position", (req, res) => {
     })
 })
 
+app.post("/avatar/:playerID/attacks", (req, res) => {
+    const playerID = req.params.playerID || ""
+    const attacks = req.body.attacks || []
+
+    const playerIndex = players.findIndex((player) => playerID === player.id)
+    
+    if(playerIndex >= 0){
+        players[playerIndex].assignAttacks(attacks)
+    }
+    res.end()
+})
+
+app.get("/avatar/:playerID/attacks", (req, res) => {
+    const playerID = req.params.playerID || ""
+    const player = players.find((player) => player.id === playerID)
+    res.send({
+        attacks: player.attacks || []
+    })
+})
 
 app.listen(port, () => {
     console.log(`listening on port ${port}`)

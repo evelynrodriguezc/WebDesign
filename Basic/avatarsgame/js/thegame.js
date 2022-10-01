@@ -22,7 +22,9 @@ const sectionViewMap = document.getElementById('view-map')
 const map = document.getElementById('map')
 
 let playerID = null 
+let enemyID = null
 let avatars = []
+let avatarsEnemies = []
 let attackByPlayer = []
 let attackByEnemy = []
 let optionsAvatars
@@ -63,7 +65,8 @@ map.width = widthMap
 map.height = expectedHeight
 
 class Avatar {
-    constructor(name, image, lives, imgMap) {
+    constructor(name, image, lives, imgMap, id = null) {
+        this.id = id 
         this.name = name
         this.image = image
         this.lives = lives
@@ -97,80 +100,49 @@ let korra = new Avatar('Korra', './assets/korra', 5, './assets/korra')
 
 let roku = new Avatar('Roku', './assets/roku', 5, './assets/roku')
 
-let aangEnemy = new Avatar('Aang', './assets/aang', 5, './assets/aang')
-
-let kiyoshiEnemy = new Avatar('Kiyoshi', './assets/kiyoshi', 5, './assets/kiyoshi')
-
-let korraEnemy = new Avatar('Korra', './assets/korra', 5, './assets/korra')
-
-let rokuEnemy = new Avatar('Roku', './assets/roku', 5, './assets/roku')
-
-
-aang.attacks.push(
+const AANG_ATTACKS = [
     { name: '🌬', id: 'button-air' },
     { name: '🌬', id: 'button-air' },
     { name: '🔥', id: 'button-fire' },
     { name: '💧', id: 'button-water' },
     { name: '🪨', id: 'button-earth' },
-)
+]
 
-aangEnemy.attacks.push(
-    { name: '🌬', id: 'button-air' },
-    { name: '🌬', id: 'button-air' },
-    { name: '🔥', id: 'button-fire' },
-    { name: '💧', id: 'button-water' },
+const KIYOSHI_ATTACKS = [
     { name: '🪨', id: 'button-earth' },
-)
+    { name: '🪨', id: 'button-earth' },
+    { name: '🌬', id: 'button-air' },
+    { name: '💧', id: 'button-water' },
+    { name: '🔥', id: 'button-fire' },
+]
 
-kiyoshi.attacks.push(
-    { name: '🪨', id: 'button-earth' },
-    { name: '🪨', id: 'button-earth' },
-    { name: '🌬', id: 'button-air' },
+const KORRA_ATTACKS = [
+    { name: '💧', id: 'button-water' },
     { name: '💧', id: 'button-water' },
     { name: '🔥', id: 'button-fire' },
-)
+    { name: '🪨', id: 'button-earth' },
+    { name: '🌬', id: 'button-air' },
+]
 
-kiyoshiEnemy.attacks.push(
-    { name: '🪨', id: 'button-earth' },
-    { name: '🪨', id: 'button-earth' },
-    { name: '🌬', id: 'button-air' },
-    { name: '💧', id: 'button-water' },
+const ROKU_ATTACKS = [
     { name: '🔥', id: 'button-fire' },
-)
+    { name: '🔥', id: 'button-fire' },
+    { name: '🪨', id: 'button-earth' },
+    { name: '💧', id: 'button-water' },
+    { name: '🌬', id: 'button-air' },
+]
 
-korra.attacks.push(
-    { name: '💧', id: 'button-water' },
-    { name: '💧', id: 'button-water' },
-    { name: '🔥', id: 'button-fire' },
-    { name: '🪨', id: 'button-earth' },
-    { name: '🌬', id: 'button-air' },
-)
 
-korraEnemy.attacks.push(
-    { name: '💧', id: 'button-water' },
-    { name: '💧', id: 'button-water' },
-    { name: '🔥', id: 'button-fire' },
-    { name: '🪨', id: 'button-earth' },
-    { name: '🌬', id: 'button-air' },
-)
+aang.attacks.push(...AANG_ATTACKS)
 
-roku.attacks.push(
-    { name: '🔥', id: 'button-fire' },
-    { name: '🔥', id: 'button-fire' },
-    { name: '🪨', id: 'button-earth' },
-    { name: '💧', id: 'button-water' },
-    { name: '🌬', id: 'button-air' },
-)
+kiyoshi.attacks.push(...KIYOSHI_ATTACKS)
 
-rokuEnemy.attacks.push(
-    { name: '🔥', id: 'button-fire' },
-    { name: '🔥', id: 'button-fire' },
-    { name: '🪨', id: 'button-earth' },
-    { name: '💧', id: 'button-water' },
-    { name: '🌬', id: 'button-air' },
-)
+korra.attacks.push(...KORRA_ATTACKS)
+
+roku.attacks.push(...ROKU_ATTACKS)
 
 avatars.push(aang, kiyoshi, korra, roku)
+
 
 function startGame() {
     
@@ -304,15 +276,44 @@ function sequenceAttack(){
                 button.style.background = '#112F58'
                 button.disabled = true
             }
-            attackEnemyRand()  
+            
+            if(attackByPlayer.length === 5) {
+                sendAttacks() 
+            }
         })
     })
 }
 
-function selectAvatarEnemy(enemy) {
-    //let randomAvatar = random(0, avatars.length -1)
+function sendAttacks(){
+    fetch(`http://localhost:8080/avatar/${playerID}/attacks`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            attacks: attackByPlayer
+        })
+    })
+    interval = setInterval(obtainAttacks, 50)
+}
 
-    //spanAvatarEnemy.innerHTML = avatars[randomAvatar].name
+function obtainAttacks(){
+    fetch(`http://localhost:8080/avatar/${enemyID}/attacks`)
+    .then(function(res){
+        if(res.ok){
+            res.json()
+            .then(function({ attacks }){
+                if(attacks.length === 5){
+                    attackByEnemy = attacks
+                    combat()
+                }
+                })
+        }
+    })
+
+}
+
+function selectAvatarEnemy(enemy) {
     spanAvatarEnemy.innerHTML = enemy.name
     attacksAvatarEnemy = enemy.attacks
     sequenceAttack()
@@ -348,6 +349,8 @@ function indexBothPlayers(player, enemy){
 
 function combat() {
     
+    clearInterval(interval)
+
     for(let index = 0; index < attackByPlayer.length; index++){
         if(attackByPlayer[index] === attackByEnemy[index]){
             indexBothPlayers(index, index)
@@ -433,17 +436,10 @@ function drawCanvas(){
     
     sendPosition(avatarPlayerObject.x, avatarPlayerObject.y)
 
-    aangEnemy.drawAvatar()
-    kiyoshiEnemy.drawAvatar()
-    korraEnemy.drawAvatar()
-    rokuEnemy.drawAvatar()
-
-    if(avatarPlayerObject.speedX !== 0 || avatarPlayerObject.speedY !== 0){
-        reviewCollision(aangEnemy)
-        reviewCollision(kiyoshiEnemy)
-        reviewCollision(korraEnemy)
-        reviewCollision(rokuEnemy)
-    }
+    avatarsEnemies.forEach(function(avatar){
+        avatar.drawAvatar()
+        reviewCollision(avatar)
+    })
 }
 
 function sendPosition(x, y){
@@ -456,6 +452,32 @@ function sendPosition(x, y){
             x,
             y
         })
+    })
+    .then(function(res){
+        if(res.ok){
+            res.json()
+                .then(function({ enemies }){
+                    console.log(enemies)
+                    avatarsEnemies = enemies.map(function (enemy){
+                        let avatarEnemy = null
+                        const avatarName = enemy.avatar.name || " "
+                        if(avatarName === "Aang"){
+                            avatarEnemy = new Avatar('Aang', './assets/aang', 5, './assets/aang', enemy.id)
+                        } else if(avatarName === "Kiyoshi"){
+                            avatarEnemy = new Avatar('Kiyoshi', './assets/kiyoshi', 5, './assets/kiyoshi', enemy.id)
+                        } else if(avatarName === "Korra"){
+                            avatarEnemy = new Avatar('Korra', './assets/korra', 5, './assets/korra', enemy.id)
+                        } else if (avatarName === "Roku"){
+                            avatarEnemy = new Avatar('Roku', './assets/roku', 5, './assets/roku', enemy.id)
+                        }
+
+                        avatarEnemy.x = enemy.x
+                        avatarEnemy.y = enemy.y
+
+                        return avatarEnemy
+                    })
+                })
+        }
     })
 }  
 
@@ -552,6 +574,9 @@ function reviewCollision(enemy){
     stopMovement()
     clearInterval(interval)
     console.log('There is a collision');
+
+    enemyID = enemy.id
+
     sectionSelectAttack.style.display = 'flex'
     sectionViewMap.style.display = 'none'
     selectAvatarEnemy(enemy)
