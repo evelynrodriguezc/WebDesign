@@ -1,22 +1,22 @@
 
-var nombre = "Pepe"; 
+var name = "Pepe"; 
 
 //DECLARAR
-var edad;
+var age;
 
-edad
+age
 
-//INICIALIZAR =
-edad = 30;
+//INICIALIZAR 
+age = 30;
 
-edad
+age
 
 // 
-var elementos = ["Computadora", "Celular"];
+var elements = ["Computer", "Cellphone"];
 
-var persona = {
-    nombre: "Pepita",
-    edad: 30
+var person = {
+    name: "Pepita",
+    age: 30
 }
 
 persona;
