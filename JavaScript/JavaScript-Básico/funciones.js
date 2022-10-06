@@ -1,16 +1,27 @@
 
 //DECLARATIVAS
 
-function miFuncion(a) {
+function myFunction(a) {
     return a;
 }
 
-miFuncion();
+myFunction();
+
+function add(a, b) {
+    var result = a + b;
+    return result;
+}
+
+add(1,2)
+
+//me retorna: 3
+
 
 //EXPRESION (anónimas)
 
-var miFuncion = function(a, b) {
+var myFunction = function(a, b) {
     return a + b;
 }
 
-miFuncion(); 
+myFunction(); 
+
