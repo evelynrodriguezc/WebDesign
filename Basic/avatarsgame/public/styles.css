@@ -12,7 +12,7 @@ user-select: none;
 body {
     font-family: 'Carme', sans-serif;
     background-color: #FFEFCF;
-  }
+}
   
 #select-avatar {
     display: flex;
