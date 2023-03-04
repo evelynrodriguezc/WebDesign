@@ -19,5 +19,5 @@ var person = {
     age: 30
 }
 
-persona;
+person;
 
