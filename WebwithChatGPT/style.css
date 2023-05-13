@@ -1,0 +1,158 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #14141A;
+    height: 100%;
+}
+
+main {
+    height: 100%; 
+}
+
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* establece la altura del contenedor en el 100% del viewport height (altura de la ventana) */
+  }
+
+section#skills {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    z-index: 1;
+  }
+
+h1,h2 {
+	color: white;
+	text-align: left;
+}
+
+.highlights {
+    color: #12C196; 
+  }
+
+p {
+	font-size: 18px;
+	line-height: 1.5;
+	color: #666;
+	margin: 20px;
+}
+a {
+	color: #333;
+	text-decoration: none;
+	padding-bottom: 2px;
+}
+a:hover {
+    border-bottom: 2px solid #333;
+}
+
+
+nav {
+    background-color: #14141A; /* Establece el color de fondo de la barra de navegación */
+    overflow: hidden; /* Evita que los elementos floten fuera de la barra de navegación */
+  }
+  
+  nav ul {
+    list-style-type: none; /* Elimina los puntos de lista por defecto */
+    margin: 0; /* Elimina el margen por defecto */
+    padding: 0; /* Elimina el relleno por defecto */
+  }
+  
+  nav li {
+    float: right; /* Hace que los elementos de lista floten a la izquierda */
+  }
+  
+  nav li a {
+    display: block; /* Convierte los enlaces en bloques para ocupar todo el ancho disponible */
+    color: white; /* Establece el color de texto de los enlaces */
+    text-align: center; /* Centra el texto de los enlaces */
+    padding: 14px 16px; /* Agrega un relleno a los enlaces */
+    text-decoration: none; /* Elimina la decoración de texto por defecto */
+  }
+  
+  nav li a:hover {
+    background-color: #111; /* Cambia el color de fondo de los enlaces cuando se desplaza sobre ellos */
+  }
+
+
+  button {
+    background-color: #008080; /* cambia el color de fondo */
+    color: white; /* cambia el color del texto */
+    font-size: 18px; /* cambia el tamaño de fuente */
+    padding: 10px 20px; /* agrega un relleno para que el botón se vea más grande */
+    border: none; /* elimina el borde */
+    border-radius: 5px; /* agrega esquinas redondeadas */
+  }
+  
+  button:hover {
+    background-color: #006666; /* cambia el color de fondo al pasar el mouse sobre el botón */
+    cursor: pointer; /* cambia el cursor a un dedo para indicar que el botón es interactivo */
+  }
+
+  .underlinetext {
+    text-decoration: underline; /* agrega una línea debajo del texto */
+    text-decoration-color: #12C196; /* cambia el color de la línea a verde */ 
+  }
+
+
+
+  .scroll-icon-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+  }
+  
+  .scroll-icon {
+    width: 30px;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 25px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .scroll-icon-dot {
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(110%);
+    animation: scroll 2s infinite;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(-50%) translateY(110%);
+    }
+    50% {
+      transform: translateX(-50%) translateY(60%);
+    }
+    100% {
+      transform: translateX(-50%) translateY(110%);
+    }
+  }
+  
